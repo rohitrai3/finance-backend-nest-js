@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, Logger, Post } from '@nestjs/common';
 import { type Transaction } from 'src/generated/prisma/client';
 import TransactionService from './transaction.service';
-import { DeleteTransactionResponse } from './transaction.types';
+import {
+  DeleteTransactionResponse,
+  GetAllTransactionsResponse,
+} from './transaction.types';
 
 @Controller('transaction/')
 export default class TransactionController {
@@ -17,10 +20,14 @@ export default class TransactionController {
   }
 
   @Get('get')
-  async getAll(): Promise<Transaction[]> {
+  async getAll(): Promise<GetAllTransactionsResponse> {
     this.logger.log('Get transaction API called');
+    const transactions = await this.transactionService.getAll();
 
-    return await this.transactionService.getAll();
+    return {
+      status: 'success',
+      transactions: transactions,
+    };
   }
 
   @Delete('delete')
