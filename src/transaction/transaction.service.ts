@@ -7,7 +7,7 @@ import PrismaService from 'src/prisma.service';
 export default class TransactionService {
   constructor(private prisma: PrismaService) {}
 
-  async createTransaction(
+  async addTransaction(
     data: Prisma.TransactionCreateInput,
   ): Promise<Transaction> {
     if (!data.id) data.id = uuid();
@@ -16,5 +16,9 @@ export default class TransactionService {
     data.updateTime = Date.now();
 
     return this.prisma.transaction.create({ data });
+  }
+
+  async getAll(): Promise<Transaction[]> {
+    return await this.prisma.transaction.findMany();
   }
 }
