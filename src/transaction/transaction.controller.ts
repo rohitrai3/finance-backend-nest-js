@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Post } from '@nestjs/common';
 import { type Transaction } from 'src/generated/prisma/client';
 import TransactionService from './transaction.service';
+import { DeleteTransactionResponse } from './transaction.types';
 
 @Controller('transaction/')
 export default class TransactionController {
@@ -20,5 +21,15 @@ export default class TransactionController {
     this.logger.log('Get transaction API called');
 
     return await this.transactionService.getAll();
+  }
+
+  @Delete('delete')
+  async deleteAll(): Promise<DeleteTransactionResponse> {
+    const count = await this.transactionService.deleteAll();
+
+    return {
+      status: 'Success',
+      count: count,
+    };
   }
 }

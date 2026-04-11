@@ -21,4 +21,10 @@ export default class TransactionService {
   async getAll(): Promise<Transaction[]> {
     return await this.prisma.transaction.findMany();
   }
+
+  async deleteAll(): Promise<number> {
+    const response = await this.prisma.transaction.deleteMany();
+
+    return response.count;
+  }
 }
