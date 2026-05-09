@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { PingResponse } from './transaction/transaction.types';
 
 @Injectable()
 export class AppService {
-  ping(): string {
-    return 'Successful';
+
+  ping(): PingResponse {
+    return {
+      status: "success"
+    };
   }
 }
