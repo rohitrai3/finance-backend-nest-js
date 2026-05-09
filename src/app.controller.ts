@@ -6,7 +6,7 @@ import type { PingResponse } from './transaction/transaction.types';
 export class AppController {
   private logger = new Logger(AppController.name);
 
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   ping(): PingResponse {
